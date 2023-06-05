@@ -1,0 +1,513 @@
++*In[ ]:*+
+[source, ipython3]
+----
+<aside>
+💡 **Question 1**
+
+Given an integer `n`, return *`true` if it is a power of three. Otherwise, return `false`*.
+
+An integer `n` is a power of three, if there exists an integer `x` such that `n == 3x`.
+
+**Example 1:**
+
+```
+Input: n = 27
+Output: true
+Explanation: 27 = 33
+```
+
+**Example 2:**
+
+```
+Input: n = 0
+Output: false
+Explanation: There is no x where 3x = 0.
+
+```
+
+**Example 3:**
+    
+Input: n = -1
+Output: false
+Explanation: There is no x where 3x = (-1).
+----
+
+
++*In[2]:*+
+[source, ipython3]
+----
+def isPowerOfThree(n):
+    if n <= 0:
+        return False
+
+    while n % 3 == 0:
+        n //= 3
+
+    return n == 1
+print(isPowerOfThree(27))  
+print(isPowerOfThree(0))
+print(isPowerOfThree(-1))
+----
+
+
++*Out[2]:*+
+----
+True
+False
+False
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+<aside>
+💡 **Question 2**
+
+You have a list `arr` of all integers in the range `[1, n]` sorted in a strictly increasing order. Apply the following algorithm on `arr`:
+
+- Starting from left to right, remove the first number and every other number afterward until you reach the end of the list.
+- Repeat the previous step again, but this time from right to left, remove the rightmost number and every other number from the remaining numbers.
+- Keep repeating the steps again, alternating left to right and right to left, until a single number remains.
+
+Given the integer `n`, return *the last number that remains in* `arr`.
+
+**Example 1:**
+
+</aside>
+----
+
+
++*In[8]:*+
+[source, ipython3]
+----
+def lastRemaining(n):
+    left_to_right = True
+    remaining = n
+    step = 1
+    start = 1
+
+    while remaining > 1:
+        if left_to_right or remaining % 2 == 1:
+            start += step
+
+        remaining //= 2
+        step *= 2
+        left_to_right = not left_to_right
+
+    return start
+print(lastRemaining(9)) 
+print(lastRemaining(1))
+----
+
+
++*Out[8]:*+
+----
+6
+1
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+💡 **Question 3**
+
+****Given a set represented as a string, write a recursive code to print all subsets of it. The subsets can be printed in any order.
+
+**Example 1:**
+
+Input :  set = “abc”
+
+Output : { “”, “a”, “b”, “c”, “ab”, “ac”, “bc”, “abc”}
+
+**Example 2:**
+
+Input : set = “abcd”
+
+Output : { “”, “a” ,”ab” ,”abc” ,”abcd”, “abd” ,”ac” ,”acd”, “ad” ,”b”, “bc” ,”bcd” ,”bd” ,”c” ,”cd” ,”d” }
+----
+
+
++*In[10]:*+
+[source, ipython3]
+----
+def generateSubsets(set_str):
+    subsets = []
+    current_subset = ''
+    index = 0
+    generateSubsetsRecursive(set_str, index, current_subset, subsets)
+    return subsets
+
+def generateSubsetsRecursive(set_str, index, current_subset, subsets):
+    if index == len(set_str):
+        subsets.append(current_subset)
+        return
+
+    # Include the current element
+    generateSubsetsRecursive(set_str, index + 1, current_subset + set_str[index], subsets)
+
+    # Exclude the current element
+    generateSubsetsRecursive(set_str, index + 1, current_subset, subsets)
+set1 = "abc"
+print(generateSubsets(set1)) 
+set2 = "abcd"
+print(generateSubsets(set2))
+----
+
+
++*Out[10]:*+
+----
+['abc', 'ab', 'ac', 'a', 'bc', 'b', 'c', '']
+['abcd', 'abc', 'abd', 'ab', 'acd', 'ac', 'ad', 'a', 'bcd', 'bc', 'bd', 'b', 'cd', 'c', 'd', '']
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+<aside>
+💡 **Question 4**
+
+Given a string calculate length of the string using recursion.
+
+**Examples:**
+
+</aside>
+----
+
+
++*In[12]:*+
+[source, ipython3]
+----
+def calculateStringLength(string):
+    if string == '':
+        return 0
+    else:
+        return 1 + calculateStringLength(string[:-1])
+string1 = 'abcd'
+print(calculateStringLength(string1))  
+
+string2 = 'GEEKSFORGEEKS'
+print(calculateStringLength(string2))
+----
+
+
++*Out[12]:*+
+----
+4
+13
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+💡 **Question 5**
+
+We are given a string S, we need to find count of all contiguous substrings starting and ending with same character.
+
+**Examples :**
+
+```
+Input  : S = "abcab"
+Output : 7
+There are 15 substrings of "abcab"
+a, ab, abc, abca, abcab, b, bc, bca
+bcab, c, ca, cab, a, ab, b
+Out of the above substrings, there
+are 7 substrings : a, abca, b, bcab,
+c, a and b.
+
+Input  : S = "aba"
+Output : 4
+The substrings are a, b, a and aba
+```
+----
+
+
++*In[13]:*+
+[source, ipython3]
+----
+def countContiguousSubstrings(S):
+    count = 0
+    for i in range(len(S)):
+        count += i + 1
+    return count
+S1 = "abcab"
+print(countContiguousSubstrings(S1))  
+
+S2 = "aba"
+print(countContiguousSubstrings(S2))
+----
+
+
++*Out[13]:*+
+----
+15
+6
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+💡 **Question 6**
+
+The [tower of Hanoi](https://en.wikipedia.org/wiki/Tower_of_Hanoi) is a famous puzzle where we have three rods and **N** disks. The objective of the puzzle is to move the entire stack to another rod. You are given the number of discs **N**. Initially, these discs are in the rod 1. You need to print all the steps of discs movement so that all the discs reach the 3rd rod. Also, you need to find the total moves.**Note:** The discs are arranged such that the **top disc is numbered 1** and the **bottom-most disc is numbered N**. Also, all the discs have **different sizes** and a bigger disc **cannot** be put on the top of a smaller disc. Refer the provided link to get a better clarity about the puzzle.
+
+**Example 1:**
+
+Input:
+N = 2
+Output:
+move disk 1 from rod 1 to rod 2
+move disk 2 from rod 1 to rod 3
+move disk 1 from rod 2 to rod 3
+3
+Explanation:For N=2 , steps will be
+as follows in the example and total
+3 steps will be taken.
+----
+
+
++*In[14]:*+
+[source, ipython3]
+----
+def towerOfHanoi(n, source, destination, auxiliary):
+    if n == 1:
+        print("Move disk 1 from rod", source, "to rod", destination)
+        return 1
+    else:
+        count = 0
+        count += towerOfHanoi(n - 1, source, auxiliary, destination)
+        print("Move disk", n, "from rod", source, "to rod", destination)
+        count += 1
+        count += towerOfHanoi(n - 1, auxiliary, destination, source)
+        return count
+
+n = 2
+total_moves = towerOfHanoi(n, 1, 3, 2)
+print("Total moves:", total_moves)
+n = 2
+total_moves = towerOfHanoi(n, 1, 3, 2)
+print("Total moves:", total_moves)
+----
+
+
++*Out[14]:*+
+----
+Move disk 1 from rod 1 to rod 2
+Move disk 2 from rod 1 to rod 3
+Move disk 1 from rod 2 to rod 3
+Total moves: 3
+Move disk 1 from rod 1 to rod 2
+Move disk 2 from rod 1 to rod 3
+Move disk 1 from rod 2 to rod 3
+Total moves: 3
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+💡 **Question 7**
+
+Given a string **str**, the task is to print all the permutations of **str**. A **permutation** is an arrangement of all or
+part of a set of objects, with regard to the order of the arrangement. For instance, the words ‘bat’ and ‘tab’ represents two
+distinct permutation (or arrangements) of a similar three letter word.
+
+**Examples:**
+> Input: str = “cd”
+> 
+> 
+> **Output:** cd dc
+> 
+> **Input:** str = “abb”
+> 
+> **Output:** abb abb bab bba bab bba
+>
+
+----
+
+
++*In[15]:*+
+[source, ipython3]
+----
+def permuteString(s, l, r):
+    if l == r:
+        print("".join(s))
+    else:
+        for i in range(l, r + 1):
+            s[l], s[i] = s[i], s[l]  # Swap the characters
+            permuteString(s, l + 1, r)  # Recursive call
+            s[l], s[i] = s[i], s[l]  # Backtrack, undo the swap
+
+# Driver code
+str = "cd"
+n = len(str)
+s = list(str)  # Convert string to a list of characters
+permuteString(s, 0, n - 1)
+str = "cd"
+n = len(str)
+s = list(str)  # Convert string to a list of characters
+permuteString(s, 0, n - 1)
+----
+
+
++*Out[15]:*+
+----
+cd
+dc
+cd
+dc
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+💡 **Question 8**
+
+Given a string, count total number of consonants in it. A consonant is an English alphabet character that is not vowel (a, e, i, o and u). Examples of constants are b, c, d, f, and g.
+
+**Examples :**
+
+Input : abc de
+Output : 3
+There are three consonants b, c and d.
+
+Input : geeksforgeeks portal
+Output : 12
+----
+
+
++*In[16]:*+
+[source, ipython3]
+----
+def countConsonants(string):
+    consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
+    count = 0
+    for char in string:
+        if char in consonants:
+            count += 1
+    return count
+
+# Example usage
+string = "abc de"
+result = countConsonants(string)
+print(result)
+string1 = "abc de"
+result1 = countConsonants(string1)
+print(result1)
+
+string2 = "geeksforgeeks portal"
+result2 = countConsonants(string2)
+print(result2)
+----
+
+
++*Out[16]:*+
+----
+3
+3
+12
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
+
+
++*In[ ]:*+
+[source, ipython3]
+----
+
+----
